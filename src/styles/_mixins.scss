@@ -169,3 +169,25 @@
     @content;
   }
 }
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+@mixin container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-md;
+  display: block;
+}
