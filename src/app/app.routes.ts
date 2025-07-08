@@ -15,4 +15,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadChildren: () => import('./features/admin/admin.routes').then((m) => m.adminRoutes),
   },
+  //   {
+  //   path: '**',
+  //   loadComponent: () => import('./shared/page-not-found.component').then(m => m.PageNotFoundComponent),
+  // }
 ];

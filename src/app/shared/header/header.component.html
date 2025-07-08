@@ -1,0 +1,23 @@
+<header class="app-header">
+  <div class="left">
+    <a routerLink="/" class="logo">🎙️ Podcat</a>
+
+    <nav class="nav-links">
+      <a routerLink="/episodes">Episodes</a>
+      <a routerLink="/confessions">Confessions</a>
+      <a routerLink="/playlists">Playlists</a>
+    </nav>
+  </div>
+
+  <div class="right">
+    <button (click)="toggleTheme()" class="theme-toggle">🌓</button>
+
+    <ng-container *ngIf="isLoggedIn(); else login">
+      <button (click)="logout()">Logout</button>
+    </ng-container>
+
+    <ng-template #login>
+      <button routerLink="/login">Login</button>
+    </ng-template>
+  </div>
+</header>

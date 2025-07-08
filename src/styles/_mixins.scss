@@ -14,7 +14,8 @@
   background-color: if($elevated, var(--color-surface-elevated), var(--color-surface));
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  @include theme-transition(background-color, border-color);
+  box-shadow: if($elevated, var(--shadow-md), var(--shadow-sm));
+  @include theme-transition((background-color, border-color, box-shadow));
 }
 
 // button variant
@@ -158,33 +159,24 @@
 }
 
 // responsive media query
-@mixin respond-above($breakpoint) {
-  @media (min-width: $breakpoint) {
-    @content;
-  }
-}
-
-@mixin respond-below($breakpoint) {
-  @media (max-width: $breakpoint) {
-    @content;
-  }
-}
-
 @mixin mobile {
-  @media (max-width: #{$mobile}) {
+  @media (max-width: #{$breakpoint-sm}) {
     @content;
   }
 }
+
 @mixin tablet {
-  @media (max-width: #{$tablet}) {
+  @media (max-width: #{$breakpoint-md}) {
     @content;
   }
 }
+
 @mixin desktop {
-  @media (min-width: #{$desktop}) {
+  @media (min-width: #{$breakpoint-lg}) {
     @content;
   }
 }
+
 @mixin container {
   max-width: 1200px;
   margin: 0 auto;
