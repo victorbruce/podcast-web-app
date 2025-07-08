@@ -17,7 +17,7 @@ export class LoginComponent {
     this.authService.login({ email, password }).subscribe({
       next: () => {
         console.log('Login successful');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/admin/dashboard']);
       },
       error: (err) => {
         console.error('Login failed', err.message);
