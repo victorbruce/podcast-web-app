@@ -18,5 +18,22 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-family-primary);
   font-size: 16px;
+  line-height: 1.6;
+  scrollbar-width: thin;
   @include theme-transition();
+}
+
+p {
+  margin: 0;
+}
+button {
+  font-family: inherit;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+// Utility classes
+.container {
+  @include container;
 }
