@@ -3,6 +3,7 @@
 @use './styles/mixins' as *;
 @use './styles/components/input' as *;
 @use './styles/components/button' as *;
+@use './styles/components/toastr-types' as *;
 
 *,
 ::after,
@@ -36,4 +37,11 @@ img {
 // Utility classes
 .container {
   @include container;
+}
+
+.toast-success {
+  background-color: var(--color-success);
+}
+.toast-error {
+  background-color: var(--color-danger);
 }

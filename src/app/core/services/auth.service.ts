@@ -27,9 +27,16 @@ export class AuthService {
   login(data: LoginRequest): Observable<LoginResponse> {
     return this.apiClient.post<LoginResponse, LoginRequest>('/login', data).pipe(
       tap((response) => {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        this._currentUser.next(response.data.user);
+        const token = response?.data?.token;
+        const user = response?.data?.user;
+
+        if (token && user) {
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+          this._currentUser.next(user);
+        } else {
+          throw new Error('Login response is missing token or user data.');
+        }
       })
     );
   }

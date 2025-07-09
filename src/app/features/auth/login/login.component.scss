@@ -1,0 +1,92 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.login-container {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  @include surface-style(true);
+
+  h2 {
+    @include TextPreset1;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-text-primary);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        @include TextPreset4;
+        color: var(--color-text-secondary);
+      }
+
+      input {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        font-size: 1rem;
+        background-color: var(--color-surface);
+        color: var(--color-text-primary);
+        @include theme-transition((border-color, background-color));
+
+        &:focus {
+          outline: none;
+          border-color: var(--color-primary);
+          box-shadow: 0 0 0 2px var(--color-primary-light);
+        }
+
+        // Applies on login failure (invalid credentials)
+        &.invalid {
+          border-color: var(--color-danger);
+          background-color: var(--color-danger-light);
+        }
+      }
+
+      .error {
+        @include TextPreset6;
+        color: var(--color-danger);
+        margin-top: -0.25rem;
+      }
+    }
+
+    .error-message {
+      @include TextPreset5;
+      background-color: var(--color-danger-light);
+      color: var(--color-danger);
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--color-danger);
+    }
+
+    button {
+      @include button-variant(primary);
+      @include button-size(full);
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+@include mobile {
+  .login-container {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+}
