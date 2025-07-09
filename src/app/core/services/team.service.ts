@@ -2,35 +2,35 @@ import { Injectable, inject } from '@angular/core';
 import { map, Observable, BehaviorSubject, tap } from 'rxjs';
 
 import { ApiClientService } from './api-client.service';
-import { Episode, EpisodeResponse } from '../core.module';
+import { TeamMember, TeamMemberResponse } from '../core.module';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EpisodeService {
+export class TeamMemberService {
   private apiClient = inject(ApiClientService);
-  private episodesSubject = new BehaviorSubject<Episode[]>([]);
+  private teamMembersSubject = new BehaviorSubject<TeamMember[]>([]);
   private totalSubject = new BehaviorSubject<number>(0);
 
-  episodes$ = this.episodesSubject.asObservable();
+  teamMembers$ = this.teamMembersSubject.asObservable();
   total$ = this.totalSubject.asObservable();
 
   constructor() {}
 
-  getEpisodes(): Observable<EpisodeResponse> {
-    return this.apiClient.get<EpisodeResponse>('/episodes').pipe(
+  getTeamMembers(): Observable<TeamMemberResponse> {
+    return this.apiClient.get<TeamMemberResponse>('/team-members').pipe(
       tap((response) => {
-        this.episodesSubject.next(response.data);
+        this.teamMembersSubject.next(response.data);
         this.totalSubject.next(response.meta.total ?? response.data.length);
       })
     );
   }
 
-  get currentEpisodes(): Episode[] {
-    return this.episodesSubject.getValue();
+  get currentTeamMembers(): TeamMember[] {
+    return this.teamMembersSubject.getValue();
   }
 
-  get totalEpisodes(): number {
+  get totalTeamMembers(): number {
     return this.totalSubject.getValue();
   }
 }
