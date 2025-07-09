@@ -1,0 +1,48 @@
+<div class="episode-card">
+  <img
+    [src]="episode.img_url"
+    alt="{{ episode.title }} cover"
+    class="episode-image"
+    loading="lazy"
+  />
+
+  <div class="episode-content">
+    <div class="episode-header">
+      <h3 class="episode-title">{{ episode.title }}</h3>
+
+      @if (episode.featured === 'true') {
+        <span class="featured-badge" aria-label="Featured Episode">Featured</span>
+      }
+    </div>
+
+    <p class="episode-description">
+      {{ episode.description }}
+    </p>
+
+    <div class="episode-meta">
+      <span>{{ episode.season }} - Episode {{ episode.episode }}</span>
+      <span>{{ episode.duration }}</span>
+      <span>{{ episode.posted_on | date: 'mediumDate' }}</span>
+    </div>
+
+    <div class="episode-links">
+      @if (episode.spotify_url) {
+        <a [href]="episode.spotify_url"> 🎧 Spotify </a>
+      }
+
+      @if (episode.apple_podcasts_url) {
+        <a [href]="episode.apple_podcasts_url"> Apple </a>
+      }
+
+      @if (episode.audio_url) {
+        <button
+          type="button"
+          class="episode-play-button"
+          [ngClass]="{ playing: isPlaying }"
+          (click)="onPlayClick()"
+          aria-label="Play/Pause Episode"
+        ></button>
+      }
+    </div>
+  </div>
+</div>
