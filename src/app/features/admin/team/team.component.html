@@ -1,0 +1,22 @@
+<h1>Teams</h1>
+
+<div class="episodes-table-container">
+  <table class="episodes-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Bio</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (teamMember of teamMembers$ | async; track teamMember.id) {
+        <tr>
+          <td>{{ teamMember?.name }}</td>
+          <td>{{ teamMember?.role }}</td>
+          <td>{{ teamMember?.bio }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

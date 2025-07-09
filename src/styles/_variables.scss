@@ -115,6 +115,9 @@ $shadow-lg-dark:
 :root {
   // Common properties using SCSS variables as values
   --font-family-primary: #{$font-family-primary};
+  --color-blue-50: #ebf1ff;
+  --color-blue-500: #335cff;
+  --color-blue-700: #2547d0;
 
   // Light mode (default)
   --color-background: #{$color-background-light};
@@ -163,9 +166,9 @@ $shadow-lg-dark:
   --color-text-tertiary: #{$color-text-tertiary-dark};
   --color-text-inverse: #{$color-text-inverse-dark};
 
-  --color-primary: #{$color-primary-dark-mode};
-  --color-primary-hover: #{$color-primary-hover-dark};
-  --color-primary-light: #{$color-primary-light-bg-dark};
+  --color-primary: var(--color-blue-500);
+  --color-primary-hover: var(--color-blue-700);
+  --color-primary-light: var(--color-blue-50);
 
   --color-success: #{$color-success-dark};
   --color-success-light: #{$color-success-light-bg-dark};
@@ -196,9 +199,9 @@ $shadow-lg-dark:
     --color-text-tertiary: #{$color-text-tertiary-dark};
     --color-text-inverse: #{$color-text-inverse-dark};
 
-    --color-primary: #{$color-primary-dark-mode};
-    --color-primary-hover: #{$color-primary-hover-dark};
-    --color-primary-light: #{$color-primary-light-bg-dark};
+    --color-primary: var(--color-blue-500);
+    --color-primary-hover: var(--color-blue-700);
+    --color-primary-light: var(--color-blue-50);
 
     --color-success: #{$color-success-dark};
     --color-success-light: #{$color-success-light-bg-dark};
