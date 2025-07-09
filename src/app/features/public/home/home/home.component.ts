@@ -1,19 +1,21 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { EpisodeService } from '../../../../core/core.module';
-import { Episode } from '../../../../core/core.module';
+import { EpisodeService, Episode } from '../../../../core/core.module';
+import { EpisodeCardComponent } from '../../episode-card/episode-card.component';
+
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, EpisodeCardComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   private episodeService = inject(EpisodeService);
-  episodes$!: Observable<Episode[]>;
+  episodes$: Observable<Episode[]> = this.episodeService.episodes$;
 
   ngOnInit(): void {
-    this.episodes$ = this.episodeService.episodes$;
-    this.episodeService.getEpisodes().subscribe((data) => console.log('episodes', data));
+    this.episodeService.getEpisodes().subscribe();
   }
 }

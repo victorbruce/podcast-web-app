@@ -1,1 +1,13 @@
-<p>home works!</p>
+<section class="latest-episodes">
+  <h2>Latest Episodes</h2>
+
+  @if (episodes$ | async; as episodes) {
+    <div class="episode-list">
+      @for (episode of episodes.slice(0, 5); track episode.id) {
+        <app-episode-card [episode]="episode" />
+      }
+    </div>
+  } @else {
+    <p>Loading episodes...</p>
+  }
+</section>
