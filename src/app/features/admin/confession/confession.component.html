@@ -1,0 +1,27 @@
+<h1>Confessions</h1>
+<div class="confession-list">
+  @for (confession of $confessions$ | async; track confession.id) {
+    <div class="confession-item">
+      <div class="left">
+        <div class="emoji">💬</div>
+        <div class="message">
+          <p class="text">{{ confession.message }}</p>
+          <p class="meta">
+            <span class="category">{{ confession.category }}</span> |
+            <span class="emotion">{{ confession.emotion }}</span> |
+            <span class="date">{{ confession.created_at | date: 'MMM d, y' }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="right">
+        <span
+          class="status"
+          [class.approved]="confession.is_approved === '1'"
+          [class.unapproved]="confession.is_approved === '0'"
+        >
+          {{ confession.is_approved === '1' ? 'Approved' : 'Pending' }}
+        </span>
+      </div>
+    </div>
+  }
+</div>

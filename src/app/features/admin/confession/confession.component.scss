@@ -1,0 +1,90 @@
+.confession-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: var(--color-surface);
+
+  .confession-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-background);
+    padding: 2rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+    .left {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+
+      .emoji {
+        font-size: 1.5rem;
+        margin-top: 0.2rem;
+      }
+
+      .message {
+        .text {
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+        }
+
+        .meta {
+          font-size: 0.875rem;
+          color: var(--color-text-primary);
+
+          .category {
+            color: var(--color-primary);
+            font-weight: 500;
+          }
+
+          .emotion {
+            color: #d93025;
+            font-weight: 500;
+          }
+
+          .date {
+            color: var(--color-text-secondary);
+          }
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .status {
+        padding: 0.35rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        &.approved {
+          background-color: var(--color-success-light);
+          color: var(--color-success);
+        }
+        &.unapproved {
+          background-color: var(--color-danger-light);
+          color: var--color-danger;
+        }
+      }
+
+      .details-btn {
+        background: var(--color-surface);
+        border: none;
+        border-radius: 6px;
+        padding: 0.4rem 0.75rem;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+
+        &:hover {
+          background: var(--color-hover);
+        }
+      }
+    }
+  }
+}

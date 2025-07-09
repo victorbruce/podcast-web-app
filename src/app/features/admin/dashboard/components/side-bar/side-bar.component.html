@@ -1,0 +1,43 @@
+<!-- sidebar -->
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">A</div>
+    <span class="company-name">Podcast Dashboard</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section">
+      <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-item">
+        <!-- <div class="nav-icon">🏠</div> -->
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/admin/dashboard/episodes" routerLinkActive="active" class="nav-item">
+        <!-- <div class="nav-icon">🏠</div> -->
+        <span>Episodes</span>
+      </a>
+      <a routerLink="/admin/dashboard/playlists" routerLinkActive="active" class="nav-item">
+        <!-- <div class="nav-icon">🏠</div> -->
+        <span>Playlists</span>
+      </a>
+      <a
+        routerLink="/admin/dashboard/confessions"
+        routerLinkActive="active"
+        class="nav-item active"
+      >
+        <!-- <div class="nav-icon">📊</div> -->
+        <span>Confessions</span>
+      </a>
+      <a routerLink="/admin/dashboard/teams" routerLinkActive="active" class="nav-item">
+        <!-- <div class="nav-icon">🔄</div> -->
+        <span>Team Members</span>
+      </a>
+    </div>
+
+    <div class="nav-section" style="margin-top: auto">
+      <!-- <div class="nav-icon">⚙️</div> -->
+      <span class="logout">
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </span>
+    </div>
+  </nav>
+</div>
