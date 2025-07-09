@@ -27,13 +27,11 @@
 
     <div class="episode-links">
       @if (episode.spotify_url) {
-        <a [href]="episode.spotify_url" target="_blank" rel="noopener noreferrer"> 🎧 Spotify </a>
+        <a [href]="episode.spotify_url"> 🎧 Spotify </a>
       }
 
       @if (episode.apple_podcasts_url) {
-        <a [href]="episode.apple_podcasts_url" target="_blank" rel="noopener noreferrer">
-          🍎 Apple
-        </a>
+        <a [href]="episode.apple_podcasts_url"> Apple </a>
       }
 
       @if (episode.audio_url) {
