@@ -13,6 +13,8 @@ import { AuthService } from '../../core/core.module';
 export class HeaderComponent {
   private authService = inject(AuthService);
   isLoggedIn = signal(this.authService.isAuthenticated());
+  menuOpen = false;
+  searchOpen = false;
 
   toggleTheme() {
     // implement ThemeService logic or placeholder
@@ -23,5 +25,9 @@ export class HeaderComponent {
     this.authService.logout().subscribe(() => {
       this.isLoggedIn.set(false);
     });
+  }
+
+  toggleSearchModal() {
+    this.searchOpen = !this.searchOpen;
   }
 }

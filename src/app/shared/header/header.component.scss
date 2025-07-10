@@ -1,0 +1,341 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+// Spotify-style Header Component Styles
+.app-header {
+  background: linear-gradient(135deg, #8e0e00 0%, #1f1c18 100%);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: #f0f0f0;
+        transform: scale(1.02);
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+
+      a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        transition: all 0.2s ease;
+        position: relative;
+
+        &:hover {
+          color: white;
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        &.active {
+          color: white;
+          background-color: rgba(255, 255, 255, 0.15);
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+
+      &.theme-toggle {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.2rem;
+        padding: 0.5rem;
+
+        &:hover {
+          color: white;
+          background-color: rgba(255, 255, 255, 0.1);
+          transform: scale(1.1);
+        }
+      }
+
+      &:not(.theme-toggle) {
+        color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        &:hover {
+          color: white;
+          background-color: rgba(255, 255, 255, 0.2);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      // Special styling for logout button
+      &[ng-reflect-router-link='/login'] {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #1f1c18;
+        font-weight: 600;
+
+        &:hover {
+          background-color: white;
+          color: #1f1c18;
+        }
+      }
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+
+    .left {
+      gap: 1rem;
+
+      .nav-links {
+        gap: 0.75rem;
+
+        a {
+          padding: 0.375rem 0.75rem;
+          font-size: 0.85rem;
+        }
+      }
+    }
+
+    .right {
+      gap: 0.5rem;
+
+      button {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .left {
+      .nav-links {
+        display: none; // Hide nav links on very small screens
+      }
+    }
+
+    .logo {
+      font-size: 1.25rem !important;
+    }
+  }
+}
+
+// Optional: Add a subtle animation when the header first loads
+.app-header {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Optional: Add a search bar similar to Spotify's
+.search-container {
+  position: relative;
+  margin-left: 1rem;
+
+  input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-size: 0.9rem;
+    min-width: 200px;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+  }
+}
+
+// Active route highlighting (if using Angular Router)
+a.active {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.mobile-menu {
+  display: none;
+
+  &.open {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: rgba(31, 28, 24, 0.95);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideDown 0.3s ease-in-out;
+    z-index: 99;
+
+    .mobile-nav-links a,
+    .mobile-auth button {
+      color: white;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      padding: 0.5rem;
+      text-align: left;
+      width: 100%;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
+
+.desktop-only {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+.mobile-actions {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .theme-toggle,
+    .hamburger,
+    .search-icon {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
+
+.mobile-search-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #1f1c18;
+  padding: 1rem;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+
+  input {
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.95rem;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+
+    &:hover {
+      color: #ccc;
+    }
+  }
+}
