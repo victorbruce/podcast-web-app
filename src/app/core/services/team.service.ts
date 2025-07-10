@@ -33,4 +33,36 @@ export class TeamMemberService {
   get totalTeamMembers(): number {
     return this.totalSubject.getValue();
   }
+
+  createTeamMember(data: Partial<TeamMember>): Observable<TeamMember> {
+    return this.apiClient.post<TeamMember>('/team-members', data).pipe(
+      tap((createdMember) => {
+        const updatedList = [...this.currentTeamMembers, createdMember];
+        this.teamMembersSubject.next(updatedList);
+        this.totalSubject.next(updatedList.length);
+      })
+    );
+  }
+
+  updateTeamMember(id: number, data: Partial<TeamMember>): Observable<TeamMember> {
+    const fullData: TeamMember = { ...(data as TeamMember), id };
+    return this.apiClient.put<TeamMember>(`/team-members/${id}`, fullData).pipe(
+      tap((updatedMember) => {
+        const updatedList = this.currentTeamMembers.map((member) =>
+          member.id === id ? updatedMember : member
+        );
+        this.teamMembersSubject.next(updatedList);
+      })
+    );
+  }
+
+  deleteTeamMember(id: number): Observable<void> {
+    return this.apiClient.delete(`/team-members/${id}`).pipe(
+      tap(() => {
+        const updatedList = this.currentTeamMembers.filter((member) => member.id !== id);
+        this.teamMembersSubject.next(updatedList);
+        this.totalSubject.next(updatedList.length);
+      })
+    );
+  }
 }
