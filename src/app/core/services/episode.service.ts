@@ -20,8 +20,11 @@ export class EpisodeService {
   getEpisodes(): Observable<EpisodeResponse> {
     return this.apiClient.get<EpisodeResponse>('/episodes').pipe(
       tap((response) => {
-        this.episodesSubject.next(response.data);
-        this.totalSubject.next(response.meta.total ?? response.data.length);
+        const sortedEpisodes = [...response.data].sort(
+          (a, b) => new Date(b.posted_on).getTime() - new Date(a.posted_on).getTime()
+        );
+        this.episodesSubject.next(sortedEpisodes);
+        this.totalSubject.next(response.meta.total ?? sortedEpisodes.length);
       })
     );
   }
