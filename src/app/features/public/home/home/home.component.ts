@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { EpisodeService, Episode } from '../../../../core/core.module';
 import { EpisodeCardComponent } from '../../episode-card/episode-card.component';
 
@@ -13,9 +13,22 @@ import { EpisodeCardComponent } from '../../episode-card/episode-card.component'
 })
 export class HomeComponent implements OnInit {
   private episodeService = inject(EpisodeService);
-  episodes$: Observable<Episode[]> = this.episodeService.episodes$;
+  episodes$: Observable<Episode[]> = this.episodeService.episodes$.pipe(
+    map((episodes) =>
+      [...episodes].sort(
+        (a, b) => new Date(b.posted_on).getTime() - new Date(a.posted_on).getTime()
+      )
+    )
+  );
+
+  // Track which episode is currently playing
+  currentlyPlayingId: string | null = null;
 
   ngOnInit(): void {
     this.episodeService.getEpisodes().subscribe();
+  }
+
+  onRequestPlay(id: string) {
+    this.currentlyPlayingId = this.currentlyPlayingId === id ? null : id;
   }
 }

@@ -2,9 +2,13 @@
   <h2>Latest Episodes</h2>
 
   @if (episodes$ | async; as episodes) {
-    <div class="episode-list">
+    <div class="episode-grid">
       @for (episode of episodes.slice(0, 5); track episode.id) {
-        <app-episode-card [episode]="episode" />
+        <app-episode-card
+          [episode]="episode"
+          [currentlyPlayingId]="currentlyPlayingId"
+          (requestPlay)="onRequestPlay($event)"
+        />
       }
     </div>
   } @else {
