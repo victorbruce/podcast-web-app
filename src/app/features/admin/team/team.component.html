@@ -1,5 +1,10 @@
 <h1>Teams</h1>
-
+<button (click)="showModal()" class="primary-btn" [ngStyle]="{ marginTop: '16px' }">
+  Add Team Member
+</button>
+@if (openModal) {
+  <app-create-team-modal (close)="hideModal()" />
+}
 <div class="episodes-table-container">
   <table class="episodes-table">
     <thead>
@@ -7,6 +12,8 @@
         <th>Name</th>
         <th>Role</th>
         <th>Bio</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +22,12 @@
           <td>{{ teamMember?.name }}</td>
           <td>{{ teamMember?.role }}</td>
           <td>{{ teamMember?.bio }}</td>
+          <td>
+            <button (click)="openEditModal(teamMember)" class="warning-btn">Edit</button>
+          </td>
+          <td>
+            <button class="danger-btn" (click)="deleteMember(teamMember.id)">Delete</button>
+          </td>
         </tr>
       }
     </tbody>

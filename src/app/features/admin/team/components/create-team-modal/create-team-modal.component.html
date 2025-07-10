@@ -1,0 +1,53 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-container">
+  <form (ngSubmit)="submitForm()" [formGroup]="teamForm">
+    <h2>{{ teamMember ? 'Edit Team Member' : 'Add Team Member' }}</h2>
+
+    <label>
+      Name:
+      <input formControlName="name" type="text" placeholder="John Doe" />
+    </label>
+
+    <label>
+      Role:
+      <input formControlName="role" type="text" placeholder="Producer" />
+    </label>
+
+    <label>
+      Bio:
+      <textarea formControlName="bio" rows="3" placeholder="Bio..."></textarea>
+    </label>
+
+    <label>
+      Profile Image URL:
+      <input formControlName="profile_image" type="text" placeholder="https://..." />
+    </label>
+
+    <div formArrayName="social_media_links">
+      <div
+        *ngFor="let link of socialLinks.controls; let i = index"
+        [formGroupName]="i"
+        class="social-link"
+      >
+        <label>
+          Platform:
+          <input formControlName="platform" type="text" placeholder="Twitter" />
+        </label>
+
+        <label>
+          URL:
+          <input formControlName="url" type="text" placeholder="https://..." />
+        </label>
+
+        <button type="button" (click)="removeSocialLink(i)">Remove</button>
+      </div>
+    </div>
+
+    <button type="button" (click)="addSocialLink()" class="primary-btn">Add Social Link</button>
+
+    <div class="actions">
+      <button type="submit" [disabled]="teamForm.invalid">Create</button>
+      <button type="button" (click)="closeModal()">Cancel</button>
+    </div>
+  </form>
+</div>
