@@ -2,35 +2,36 @@ import { Injectable, inject } from '@angular/core';
 import { map, Observable, BehaviorSubject, tap } from 'rxjs';
 
 import { ApiClientService } from './api-client.service';
-import { Episode, EpisodeResponse } from '../core.module';
+import { Confession, ConfessionResponse } from '../core.module';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EpisodeService {
+export class ConfessionService {
   private apiClient = inject(ApiClientService);
-  private episodesSubject = new BehaviorSubject<Episode[]>([]);
+
+  private confessionsSubject = new BehaviorSubject<any[]>([]);
   private totalSubject = new BehaviorSubject<number>(0);
 
-  episodes$ = this.episodesSubject.asObservable();
+  confessions$ = this.confessionsSubject.asObservable();
   total$ = this.totalSubject.asObservable();
 
   constructor() {}
 
-  getEpisodes(): Observable<EpisodeResponse> {
-    return this.apiClient.get<EpisodeResponse>('/episodes').pipe(
+  getConfessions(): Observable<ConfessionResponse> {
+    return this.apiClient.get<ConfessionResponse>('/confessions').pipe(
       tap((response) => {
-        this.episodesSubject.next(response.data);
+        this.confessionsSubject.next(response.data);
         this.totalSubject.next(response.meta.total ?? response.data.length);
       })
     );
   }
 
-  get currentEpisodes(): Episode[] {
-    return this.episodesSubject.getValue();
+  get currentConfessions(): Confession[] {
+    return this.confessionsSubject.getValue();
   }
 
-  get totalEpisodes(): number {
+  get totalConfessions(): number {
     return this.totalSubject.getValue();
   }
 }

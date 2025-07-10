@@ -20,4 +20,9 @@ export interface Episode {
 export interface EpisodeResponse {
   status: string;
   data: Episode[];
+  meta: {
+    total: number;
+    page: number;
+    last_page: number;
+  };
 }

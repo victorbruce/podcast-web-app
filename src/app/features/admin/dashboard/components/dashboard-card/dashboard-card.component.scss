@@ -1,0 +1,43 @@
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.3s ease;
+
+  .icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-right: 1rem;
+  }
+
+  .content {
+    .title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    .value {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--color-text);
+    }
+  }
+
+  // // Dark theme support (if you toggle themes)
+  // [data-theme='dark'] & {
+  //   background-color: #1e1e2f;
+  //   .title {
+  //     color: #ccc;
+  //   }
+  //   .value {
+  //     color: #fff;
+  //   }
+  // }
+}

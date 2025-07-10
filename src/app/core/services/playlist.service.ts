@@ -2,35 +2,35 @@ import { Injectable, inject } from '@angular/core';
 import { map, Observable, BehaviorSubject, tap } from 'rxjs';
 
 import { ApiClientService } from './api-client.service';
-import { Episode, EpisodeResponse } from '../core.module';
+// import { Episode, EpisodeResponse } from '../core.module';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EpisodeService {
+export class PlaylistService {
   private apiClient = inject(ApiClientService);
-  private episodesSubject = new BehaviorSubject<Episode[]>([]);
+  private playlistsSubject = new BehaviorSubject<any[]>([]);
   private totalSubject = new BehaviorSubject<number>(0);
 
-  episodes$ = this.episodesSubject.asObservable();
+  playlists$ = this.playlistsSubject.asObservable();
   total$ = this.totalSubject.asObservable();
 
   constructor() {}
 
-  getEpisodes(): Observable<EpisodeResponse> {
-    return this.apiClient.get<EpisodeResponse>('/episodes').pipe(
+  getPlaylists(): Observable<any> {
+    return this.apiClient.get<any>('/playlists').pipe(
       tap((response) => {
-        this.episodesSubject.next(response.data);
+        this.playlistsSubject.next(response.data);
         this.totalSubject.next(response.meta.total ?? response.data.length);
       })
     );
   }
 
-  get currentEpisodes(): Episode[] {
-    return this.episodesSubject.getValue();
+  get currentPlaylists(): any[] {
+    return this.playlistsSubject.getValue();
   }
 
-  get totalEpisodes(): number {
+  get totalPlaylists(): number {
     return this.totalSubject.getValue();
   }
 }

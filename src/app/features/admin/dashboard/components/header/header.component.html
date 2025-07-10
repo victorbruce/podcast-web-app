@@ -1,0 +1,17 @@
+<div class="main-header">
+  <div class="header-top">
+    <div class="header-sidebar">
+      <!-- <button>Open</button> -->
+      <h1 class="page-title">Welcome, {{ user?.name }}</h1>
+    </div>
+
+    <button class="toggle-btn" (click)="toggleTheme()">
+      {{ currentTheme === 'light' ? 'dark' : 'light' }} mode
+    </button>
+  </div>
+
+  <!-- <div class="header-actions">
+    <button class="action-btn">📋 Customize Columns</button>
+    <button class="action-btn">➕ Add Section</button>
+  </div> -->
+</div>
