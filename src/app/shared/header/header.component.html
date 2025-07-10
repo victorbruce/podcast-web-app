@@ -2,22 +2,56 @@
   <div class="left">
     <a routerLink="/" class="logo">🎙️ Podcat</a>
 
-    <nav class="nav-links">
-      <a routerLink="/episodes">Episodes</a>
-      <a routerLink="/confessions">Confessions</a>
-      <a routerLink="/playlists">Playlists</a>
+    <nav class="nav-links desktop-only">
+      <a routerLink="/episodes" routerLinkActive="active">Episodes</a>
+      <a routerLink="/confessions" routerLinkActive="active">Confessions</a>
+      <a routerLink="/playlists" routerLinkActive="active">Playlists</a>
     </nav>
+
+    <div class="search-container desktop-only">
+      <input type="text" placeholder="Search episodes..." />
+    </div>
   </div>
 
-  <div class="right">
+  <div class="right desktop-only">
     <button (click)="toggleTheme()" class="theme-toggle">🌓</button>
 
-    <ng-container *ngIf="isLoggedIn(); else login">
+    @if (isLoggedIn()) {
       <button (click)="logout()">Logout</button>
-    </ng-container>
-
-    <ng-template #login>
+    } @else {
       <button routerLink="/login">Login</button>
-    </ng-template>
+    }
   </div>
+
+  <!-- Mobile Right Section -->
+  <div class="mobile-actions">
+    <button (click)="toggleSearchModal()" class="search-icon">🔍</button>
+    <button (click)="toggleTheme()" class="theme-toggle">🌓</button>
+    <button class="hamburger" (click)="menuOpen = !menuOpen">☰</button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="menuOpen">
+    <nav class="mobile-nav-links">
+      <a routerLink="/" routerLinkActive="active" (click)="menuOpen = false">Episodes</a>
+      <a routerLink="/confessions" routerLinkActive="active" (click)="menuOpen = false"
+        >Confessions</a
+      >
+      <a routerLink="/playlists" routerLinkActive="active" (click)="menuOpen = false">Playlists</a>
+    </nav>
+
+    @if (isLoggedIn()) {
+      <button (click)="logout(); menuOpen = false">Logout</button>
+    } @else {
+      <button routerLink="/login" (click)="menuOpen = false">Login</button>
+    }
+  </div>
+
+  <!-- Mobile Search Modal -->
+  @if (searchOpen) {
+    <div class="mobile-search-modal">
+      <input type="text" placeholder="Search episodes..." autofocus />
+      <button class="close-btn" (click)="toggleSearchModal()">✖</button>
+    </div>
+  }
 </header>
