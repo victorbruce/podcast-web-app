@@ -1,48 +1,74 @@
-<div class="episode-card">
-  <img
-    [src]="episode.img_url"
-    alt="{{ episode.title }} cover"
-    class="episode-image"
-    loading="lazy"
-  />
+<div class="episode-card" [ngClass]="{ 'featured-episode': isFeatured }">
+  <div class="episode-image-container">
+    <img
+      [src]="episode.img_url"
+      alt="{{ episode.title }} cover"
+      class="episode-image"
+      loading="lazy"
+    />
+    <button
+      type="button"
+      class="episode-play-button"
+      [ngClass]="{ playing: isPlaying }"
+      (click)="onPlayClick()"
+      aria-label="Play/Pause Episode"
+    >
+      @if (isPlaying) {
+        &#10073;&#10073;
+      } @else {
+        &#9658;
+      }
+    </button>
+  </div>
 
   <div class="episode-content">
     <div class="episode-header">
       <h3 class="episode-title">{{ episode.title }}</h3>
-
       @if (episode.featured === 'true') {
         <span class="featured-badge" aria-label="Featured Episode">Featured</span>
       }
     </div>
 
-    <p class="episode-description">
-      {{ episode.description }}
-    </p>
+    <p class="episode-description">{{ episode.description }}</p>
 
-    <div class="episode-meta">
-      <span>{{ episode.season }} - Episode {{ episode.episode }}</span>
-      <span>{{ episode.duration }}</span>
-      <span>{{ episode.posted_on | date: 'mediumDate' }}</span>
+    <div class="episode-meta-and-progress">
+      <div class="episode-meta">
+        <span>{{ episode.posted_on | date: 'mediumDate' }}</span>
+        <span>{{ isPlaying ? remainingTime : durationFormatted }}</span>
+      </div>
+
+      @if (isPlaying) {
+        <div
+          class="progress-bar-container"
+          (click)="seekAudio($event)"
+          (mousemove)="onHoverProgress($event)"
+          [attr.title]="hoverTime"
+        >
+          <div class="progress-bar" [style.width.%]="progress"></div>
+        </div>
+      }
     </div>
 
     <div class="episode-links">
-      @if (episode.spotify_url) {
-        <a [href]="episode.spotify_url"> 🎧 Spotify </a>
-      }
+      <div class="platform-links">
+        @if (episode.spotify_url) {
+          <a [href]="episode.spotify_url" target="_blank" rel="noopener">
+            <img
+              src="https://d12xoj7p9moygp.cloudfront.net/images/podcast/logo-square/spotify@2x.png"
+              alt="Spotify"
+            />
+          </a>
+        }
 
-      @if (episode.apple_podcasts_url) {
-        <a [href]="episode.apple_podcasts_url"> Apple </a>
-      }
-
-      @if (episode.audio_url) {
-        <button
-          type="button"
-          class="episode-play-button"
-          [ngClass]="{ playing: isPlaying }"
-          (click)="onPlayClick()"
-          aria-label="Play/Pause Episode"
-        ></button>
-      }
+        @if (episode.apple_podcasts_url) {
+          <a [href]="episode.apple_podcasts_url" target="_blank" rel="noopener">
+            <img
+              src="https://d12xoj7p9moygp.cloudfront.net/images/podcast/logo-square/apple_podcasts@2x.png"
+              alt="Apple"
+            />
+          </a>
+        }
+      </div>
     </div>
   </div>
 </div>

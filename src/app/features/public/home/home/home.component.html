@@ -1,13 +1,32 @@
-<section class="latest-episodes">
-  <h2>Latest Episodes</h2>
+<div class="container">
+  <section class="latest-episodes">
+    <!-- <h2>🎙️ Featured Episode</h2> -->
 
-  @if (episodes$ | async; as episodes) {
-    <div class="episode-list">
-      @for (episode of episodes.slice(0, 5); track episode.id) {
-        <app-episode-card [episode]="episode" />
+    @if (featuredEpisode) {
+      <app-episode-card
+        [episode]="featuredEpisode"
+        [currentlyPlayingId]="currentlyPlayingId"
+        (requestPlay)="onRequestPlay($event)"
+        [isFeatured]="true"
+      />
+    }
+
+    <!-- <h2>📻 Latest Episodes</h2> -->
+
+    <div class="episode-grid">
+      @for (episode of visibleEpisodes; track episode.id) {
+        <app-episode-card
+          [episode]="episode"
+          [currentlyPlayingId]="currentlyPlayingId"
+          (requestPlay)="onRequestPlay($event)"
+        />
       }
     </div>
-  } @else {
-    <p>Loading episodes...</p>
-  }
-</section>
+
+    @if (!showAll) {
+      <div class="see-more">
+        <button (click)="seeMore()">See More Episodes</button>
+      </div>
+    }
+  </section>
+</div>
