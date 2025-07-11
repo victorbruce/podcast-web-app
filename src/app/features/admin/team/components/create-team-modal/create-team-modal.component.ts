@@ -66,13 +66,11 @@ export class CreateTeamModalComponent {
     const payload = this.teamForm.value;
 
     if (this.teamMember) {
-      // Update existing
       this.teamService.updateTeamMember(this.teamMember.id, payload).subscribe({
         next: () => this.close.emit(),
         error: (err) => console.error('Error updating:', err),
       });
     } else {
-      // Create new
       this.teamService.createTeamMember(payload).subscribe({
         next: () => this.close.emit(),
         error: (err) => console.error('Error creating:', err),

@@ -15,7 +15,7 @@ export class TeamComponent implements OnInit {
 
   total$ = this.teamMemberService.total$;
   teamMembers$ = this.teamMemberService.teamMembers$;
-  selectedTeamMember: TeamMember | null = null;
+  selectedTeamMember?: TeamMember;
 
   openModal = false;
 
@@ -38,7 +38,7 @@ export class TeamComponent implements OnInit {
 
   onModalClose() {
     this.openModal = false;
-    this.selectedTeamMember = null;
+    this.selectedTeamMember = undefined;
   }
 
   deleteMember(id: number) {
