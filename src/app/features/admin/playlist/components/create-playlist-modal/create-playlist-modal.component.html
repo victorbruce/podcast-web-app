@@ -1,0 +1,40 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-container">
+  <form (ngSubmit)="submitForm()" [formGroup]="playlistForm">
+    <h2>{{ playlist ? 'Edit Playlist' : 'Create Playlist' }}</h2>
+
+    <!-- Title -->
+    <label>
+      Title:
+      <input formControlName="title" type="text" placeholder="e.g. My Favorite Episodes" />
+    </label>
+
+    <!-- Description -->
+    <label>
+      Description:
+      <textarea
+        formControlName="description"
+        rows="3"
+        placeholder="Describe your playlist..."
+      ></textarea>
+    </label>
+
+    <!-- Episodes Multi-Select -->
+    <label>
+      Episodes:
+      <select formControlName="episode_ids" multiple>
+        <option *ngFor="let ep of episodes" [value]="ep.id">
+          {{ ep.title }}
+        </option>
+      </select>
+    </label>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button type="submit" [disabled]="playlistForm.invalid">
+        {{ playlist ? 'Update' : 'Create' }}
+      </button>
+      <button type="button" (click)="closeModal()">Cancel</button>
+    </div>
+  </form>
+</div>

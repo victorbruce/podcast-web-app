@@ -1,2 +1,43 @@
 <h1>Playlists</h1>
-<p>{{ total$ | async }}</p>
+@if (showModal) {
+  <app-create-playlist-modal [playlist]="selectedPlaylist" (close)="closeModal()" />
+}
+<button (click)="openCreateModal()" class="primary-btn" [ngStyle]="{ marginTop: '16px' }">
+  Add Playlist
+</button>
+<div class="episodes-table-container">
+  @if (loading) {
+    <p>Loading...</p>
+  } @else if (error) {
+    <p class="text-danger">{{ error }}</p>
+  } @else if (!hasPlaylists) {
+    <p>No playlist found</p>
+  } @else {
+    <table class="episodes-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Episodes</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (playlist of playlists$ | async; track playlist.id) {
+          <tr>
+            <td>
+              {{ playlist.name }}
+            </td>
+            <td>{{ playlist.description }}</td>
+            <td>{{ playlist?.episodes?.length ?? 0 }}</td>
+            <td><button (click)="openEditModal(playlist)" class="warning-btn">Edit</button></td>
+            <td>
+              <button (click)="deletePlaylist(playlist.id)" class="danger-btn">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

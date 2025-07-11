@@ -4,6 +4,7 @@ export * from './models/episode.model';
 export * from './models/confession.model';
 export * from './models/team.model';
 export * from './models/team.model';
+export * from './models/playlist.model';
 export * from './services/api-client.service';
 export * from './services/auth.service';
 export * from './services/error-handler.service';
