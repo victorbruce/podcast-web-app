@@ -3,7 +3,7 @@
   Add Team Member
 </button>
 @if (openModal) {
-  <app-create-team-modal (close)="hideModal()" />
+  <app-create-team-modal [teamMember]="selectedTeamMember" (close)="onModalClose()" />
 }
 <div class="episodes-table-container">
   <table class="episodes-table">

@@ -46,7 +46,9 @@
     <button type="button" (click)="addSocialLink()" class="primary-btn">Add Social Link</button>
 
     <div class="actions">
-      <button type="submit" [disabled]="teamForm.invalid">Create</button>
+      <button type="submit" [disabled]="teamForm.invalid">
+        {{ teamMember ? 'Update' : 'Create' }}
+      </button>
       <button type="button" (click)="closeModal()">Cancel</button>
     </div>
   </form>

@@ -14,12 +14,14 @@
   left: 50%;
   width: 90%;
   max-width: 600px;
+  height: 90vh;
   transform: translate(-50%, -50%);
   background: var(--color-background);
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  overflow-y: auto;
 
   h2 {
     margin-bottom: 1rem;
