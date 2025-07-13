@@ -2,11 +2,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EpisodeService, Episode } from '../../../../core/core.module';
 import { EpisodeCardComponent } from '../../episode-card/episode-card.component';
+import { HeaderComponent } from '../../../../shared/header/header.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, EpisodeCardComponent],
+  imports: [CommonModule, EpisodeCardComponent, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })

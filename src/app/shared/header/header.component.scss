@@ -1,9 +1,12 @@
 @use '../../../styles/variables' as *;
 @use '../../../styles/mixins' as *;
 
-// Spotify-style Header Component Styles
 .app-header {
-  background: linear-gradient(135deg, #8e0e00 0%, #1f1c18 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    color-mix(in srgb, var(--color-primary) 40%, var(--color-surface))
+  );
   padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -11,9 +14,9 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--color-border);
 
   .left {
     display: flex;
@@ -23,15 +26,15 @@
     .logo {
       font-size: 1.5rem;
       font-weight: 700;
-      color: white;
+      color: var(--color-text-inverse);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      transition: all 0.2s ease;
+      @include theme-transition(all);
 
       &:hover {
-        color: #f0f0f0;
+        color: var(--color-text-primary);
         transform: scale(1.02);
       }
     }
@@ -41,23 +44,23 @@
       gap: 1.5rem;
 
       a {
-        color: rgba(255, 255, 255, 0.8);
+        color: var(--color-text-secondary);
         text-decoration: none;
         font-weight: 500;
         font-size: 0.95rem;
         padding: 0.5rem 1rem;
         border-radius: 20px;
-        transition: all 0.2s ease;
+        @include theme-transition(all);
         position: relative;
 
         &:hover {
-          color: white;
-          background-color: rgba(255, 255, 255, 0.1);
+          color: var(--color-text-primary);
+          background-color: var(--color-hover);
         }
 
         &.active {
-          color: white;
-          background-color: rgba(255, 255, 255, 0.15);
+          color: var(--color-text-primary);
+          background-color: var(--color-active);
 
           &::after {
             content: '';
@@ -67,7 +70,7 @@
             transform: translateX(-50%);
             width: 4px;
             height: 4px;
-            background-color: white;
+            background-color: var(--color-text-primary);
             border-radius: 50%;
           }
         }
@@ -88,49 +91,47 @@
       font-size: 0.9rem;
       padding: 0.5rem 1rem;
       border-radius: 20px;
-      transition: all 0.2s ease;
+      @include theme-transition(all);
 
       &.theme-toggle {
-        color: rgba(255, 255, 255, 0.8);
+        color: var(--color-text-secondary);
         font-size: 1.2rem;
         padding: 0.5rem;
 
         &:hover {
-          color: white;
-          background-color: rgba(255, 255, 255, 0.1);
+          color: var(--color-text-primary);
+          background-color: var(--color-hover);
           transform: scale(1.1);
         }
       }
 
       &:not(.theme-toggle) {
-        color: rgba(255, 255, 255, 0.9);
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--color-text-primary);
+        background-color: var(--color-hover);
+        border: 1px solid var(--color-border);
 
         &:hover {
-          color: white;
-          background-color: rgba(255, 255, 255, 0.2);
+          color: var(--color-text-inverse);
+          background-color: var(--color-active);
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          box-shadow: var(--shadow-md);
         }
       }
 
-      // Special styling for logout button
-      &[ng-reflect-router-link='/login'] {
-        background-color: rgba(255, 255, 255, 0.9);
-        color: #1f1c18;
+      &[ng-reflect-router-link='/auth/login'] {
+        background-color: var(--color-text-inverse);
+        color: var(--color-surface);
         font-weight: 600;
 
         &:hover {
-          background-color: white;
-          color: #1f1c18;
+          background-color: var(--color-background);
+          color: var(--color-surface);
         }
       }
     }
   }
 
-  // Responsive design
-  @media (max-width: 768px) {
+  @include tablet {
     padding: 0.5rem 1rem;
 
     .left {
@@ -156,11 +157,9 @@
     }
   }
 
-  @media (max-width: 480px) {
-    .left {
-      .nav-links {
-        display: none; // Hide nav links on very small screens
-      }
+  @include mobile {
+    .left .nav-links {
+      display: none;
     }
 
     .logo {
@@ -169,7 +168,6 @@
   }
 }
 
-// Optional: Add a subtle animation when the header first loads
 .app-header {
   animation: slideDown 0.3s ease-out;
 }
@@ -185,94 +183,166 @@
   }
 }
 
-// Optional: Add a search bar similar to Spotify's
-.search-container {
-  position: relative;
-  margin-left: 1rem;
-
-  input {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-    color: white;
-    font-size: 0.9rem;
-    min-width: 200px;
-
-    &::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    &:focus {
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.4);
-    }
-  }
-}
-
-// Active route highlighting (if using Angular Router)
 a.active {
-  color: white !important;
-  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: var(--color-text-primary) !important;
+  background-color: var(--color-active) !important;
 }
 
 .hamburger {
   display: none;
-  font-size: 1.5rem;
+  position: relative;
+  width: 1.5rem;
+  height: 1rem;
+  padding: 0;
   background: none;
   border: none;
-  color: white;
   cursor: pointer;
+  z-index: 100;
+  @include theme-transition(all);
 
-  @media (max-width: 768px) {
+  span {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-text-inverse);
+    left: 0;
+    transition: all 0.3s ease-in-out;
+    border-radius: 2px;
+
+    &:nth-child(1) {
+      top: 0;
+    }
+
+    &:nth-child(2) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:nth-child(3) {
+      bottom: 0;
+    }
+  }
+
+  &.open span {
+    background-color: var(--color-text-primary);
+
+    &:nth-child(1) {
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+    }
+
+    &:nth-child(3) {
+      bottom: 50%;
+      transform: translateY(50%) rotate(-45deg);
+    }
+  }
+
+  @include tablet {
     display: block;
+  }
+
+  &:hover span {
+    background-color: var(--color-text-primary);
   }
 }
 
 .mobile-menu {
   display: none;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--color-surface);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  z-index: 99;
+  transform-origin: top;
+  animation: slideDown 0.3s ease-in-out;
 
   &.open {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    background-color: rgba(31, 28, 24, 0.95);
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    animation: slideDown 0.3s ease-in-out;
-    z-index: 99;
+  }
 
-    .mobile-nav-links a,
-    .mobile-auth button {
-      color: white;
-      background: none;
-      border: none;
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    a {
+      color: var(--color-text-primary);
+      text-decoration: none;
       font-size: 1rem;
-      padding: 0.5rem;
-      text-align: left;
-      width: 100%;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background-color: transparent;
+      @include theme-transition(all);
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: var(--color-hover);
+      }
+
+      &.active {
+        background-color: var(--color-active);
+        color: var(--color-text-primary);
+        font-weight: 600;
+      }
+    }
+  }
+
+  .mobile-auth {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    button {
+      background-color: var(--color-hover);
+      color: var(--color-text-primary);
+      border: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-align: left;
+      cursor: pointer;
+      @include theme-transition(all);
+
+      &:hover {
+        background-color: var(--color-active);
+        color: var(--color-text-inverse);
+      }
+
+      &[routerLink='/auth/login'] {
+        background-color: var(--color-text-inverse);
+        color: var(--color-surface);
+        font-weight: 600;
+
+        &:hover {
+          background-color: var(--color-background);
+          color: var(--color-surface);
+        }
       }
     }
   }
 }
 
 .desktop-only {
-  @media (max-width: 768px) {
+  @include tablet {
     display: none !important;
   }
 }
+
 .mobile-actions {
   display: none;
 
-  @media (max-width: 768px) {
+  @include tablet {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -282,15 +352,9 @@ a.active {
     .search-icon {
       background: none;
       border: none;
-      color: white;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       padding: 0.5rem;
       cursor: pointer;
-      border-radius: 8px;
-
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
     }
   }
 }
@@ -300,42 +364,56 @@ a.active {
   top: 0;
   left: 0;
   width: 100%;
-  background: #1f1c18;
-  padding: 1rem;
+  background-color: var(--color-surface);
+  padding: 1rem 1.25rem;
   z-index: 999;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
+  animation: slideDown 0.3s ease-in-out;
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(8px);
 
-  input {
+  .modal-search-input {
     flex-grow: 1;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    color: white;
-    font-size: 0.95rem;
 
-    &::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
+    input {
+      width: 100%;
+      background-color: var(--color-hover);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      color: var(--color-text-primary);
+      font-size: 0.95rem;
+      @include theme-transition(all);
 
-    &:focus {
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.15);
+      &::placeholder {
+        color: var(--color-text-secondary);
+      }
+
+      &:focus {
+        outline: none;
+        background-color: var(--color-active);
+      }
     }
   }
 
   .close-btn {
     background: none;
     border: none;
-    color: white;
-    font-size: 1.25rem;
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+    font-weight: bold;
     cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    @include theme-transition(all);
 
     &:hover {
-      color: #ccc;
+      background-color: var(--color-hover);
+      color: var(--color-text-inverse);
     }
   }
 }
