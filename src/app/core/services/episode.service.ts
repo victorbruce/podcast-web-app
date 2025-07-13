@@ -42,4 +42,18 @@ export class EpisodeService {
       .get<EpisodeResponse>('/episodes')
       .pipe(map((response) => response.data.find((episode) => episode.id === episodeID)));
   }
+
+  searchEpisodes(search: string): Observable<EpisodeResponse> {
+    return this.apiClient
+      .get<EpisodeResponse>(`/episodes/search?search=${encodeURIComponent(search)}`)
+      .pipe(
+        tap((response) => {
+          const sortedEpisodes = [...response.data].sort(
+            (a, b) => new Date(b.posted_on).getTime() - new Date(a.posted_on).getTime()
+          );
+          this.episodesSubject.next(sortedEpisodes);
+          this.totalSubject.next(response.meta.total ?? sortedEpisodes.length);
+        })
+      );
+  }
 }
