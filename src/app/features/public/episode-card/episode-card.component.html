@@ -1,4 +1,8 @@
-<div class="episode-card" [ngClass]="{ 'featured-episode': isFeatured }">
+<div
+  (click)="navigateToDetails(episode)"
+  class="episode-card"
+  [ngClass]="{ 'featured-episode': isFeatured }"
+>
   <div class="episode-image-container">
     <img
       [src]="episode.img_url"
