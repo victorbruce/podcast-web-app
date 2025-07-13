@@ -8,9 +8,8 @@
       <a routerLink="/playlists" routerLinkActive="active">Playlists</a>
     </nav>
 
-    <div class="search-container desktop-only">
-      <input type="text" placeholder="Search episodes..." />
-    </div>
+    <!-- Desktop -->
+    <app-search class="desktop-only"></app-search>
   </div>
 
   <div class="right desktop-only">
@@ -19,7 +18,7 @@
     @if (isLoggedIn()) {
       <button (click)="logout()">Logout</button>
     } @else {
-      <button routerLink="/login">Login</button>
+      <button routerLink="/auth/login">Login</button>
     }
   </div>
 
@@ -27,7 +26,16 @@
   <div class="mobile-actions">
     <button (click)="toggleSearchModal()" class="search-icon">🔍</button>
     <button (click)="toggleTheme()" class="theme-toggle">🌓</button>
-    <button class="hamburger" (click)="menuOpen = !menuOpen">☰</button>
+    <button
+      class="hamburger"
+      (click)="menuOpen = !menuOpen"
+      [class.open]="menuOpen"
+      aria-label="Toggle menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 
   <!-- Mobile Menu -->
@@ -43,15 +51,17 @@
     @if (isLoggedIn()) {
       <button (click)="logout(); menuOpen = false">Logout</button>
     } @else {
-      <button routerLink="/login" (click)="menuOpen = false">Login</button>
+      <button routerLink="/auth/login" (click)="menuOpen = false">Login</button>
     }
   </div>
 
   <!-- Mobile Search Modal -->
   @if (searchOpen) {
     <div class="mobile-search-modal">
-      <input type="text" placeholder="Search episodes..." autofocus />
-      <button class="close-btn" (click)="toggleSearchModal()">✖</button>
+      <app-search class="modal-search-input" />
+      <button class="close-btn" (click)="toggleSearchModal()" aria-label="Close Search Modal">
+        ✖
+      </button>
     </div>
   }
 </header>
