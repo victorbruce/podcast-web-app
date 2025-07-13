@@ -36,4 +36,10 @@ export class EpisodeService {
   get totalEpisodes(): number {
     return this.totalSubject.getValue();
   }
+
+  getEpisodeByID(episodeID: number): Observable<Episode | undefined> {
+    return this.apiClient
+      .get<EpisodeResponse>('/episodes')
+      .pipe(map((response) => response.data.find((episode) => episode.id === episodeID)));
+  }
 }

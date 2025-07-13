@@ -1,0 +1,12 @@
+@if (episode) {
+  <h2>{{ episode.title }}</h2>
+  <p>Episode: {{ episode.episode }}</p>
+  <p>Season: {{ episode.season }}</p>
+  <p>Posted On: {{ episode.posted_on | date: 'MMM d, y' }}</p>
+  <img
+    [src]="episode.img_url"
+    [ngStyle]="{ width: '100px', height: '100px', borderRadius: '8px' }"
+  />
+} @else {
+  <p>Loading episode details...</p>
+}

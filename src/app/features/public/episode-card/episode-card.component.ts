@@ -6,9 +6,11 @@ import {
   OnChanges,
   SimpleChanges,
   OnInit,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Episode } from '../../../core/core.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-episode-card',
@@ -22,6 +24,7 @@ export class EpisodeCardComponent implements OnInit, OnChanges {
   @Input() currentlyPlayingId!: number | null;
   @Input() isFeatured = false;
   @Output() requestPlay = new EventEmitter<number>();
+  private router = inject(Router);
 
   isPlaying = false;
   progress = 0;
@@ -115,5 +118,9 @@ export class EpisodeCardComponent implements OnInit, OnChanges {
     const percentage = x / rect.width;
     const seconds = this.audio.duration * percentage;
     this.hoverTime = this.formatTime(seconds);
+  }
+
+  navigateToDetails(episode: Episode) {
+    this.router.navigate(['episodes', episode.id]);
   }
 }
