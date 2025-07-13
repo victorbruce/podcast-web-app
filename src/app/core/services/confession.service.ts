@@ -34,4 +34,28 @@ export class ConfessionService {
   get totalConfessions(): number {
     return this.totalSubject.getValue();
   }
+
+  createConfession(confession: Confession): Observable<ConfessionResponse> {
+    return this.apiClient.post<ConfessionResponse>('/confessions', confession).pipe(
+      tap((response) => {
+        const updated = [response.data, ...this.confessionsSubject.getValue()];
+        this.confessionsSubject.next(updated);
+        this.totalSubject.next(this.totalSubject.getValue() + 1);
+      })
+    );
+  }
+
+  getConfession(id: number): Observable<ConfessionResponse> {
+    return this.apiClient.get<ConfessionResponse>(`/confessions/${id}`);
+  }
+
+  deleteConfession(id: number): Observable<any> {
+    return this.apiClient.delete(`/confessions/${id}`).pipe(
+      tap(() => {
+        const updated = this.confessionsSubject.getValue().filter((c) => c.id !== id);
+        this.confessionsSubject.next(updated);
+        this.totalSubject.next(updated.length);
+      })
+    );
+  }
 }
